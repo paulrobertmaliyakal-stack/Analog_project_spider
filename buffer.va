@@ -1,0 +1,13 @@
+// VerilogA for averilog, buffer, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module buffer(in,out);
+input in;
+output out;
+electrical in,out;
+analog begin
+V(out)<+V(in);
+end
+endmodule

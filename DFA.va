@@ -1,0 +1,13 @@
+// VerilogA for averilog, DFA, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module DFA(in1,in2,out);
+input in1,in2;
+output out;
+electrical in1,in2,out;
+analog begin 
+V(out)<+V (in1)-V(in2);
+end
+endmodule

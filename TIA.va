@@ -1,0 +1,13 @@
+// VerilogA for averilog, TIA, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module TIA(in,out);
+electrical in,out;
+input in;
+output out;
+analog begin
+V(in,out)<+I(in,out);
+end	
+endmodule
