@@ -45,7 +45,7 @@ end
 analog begin
 for(i=0;i<10;i=i+1) begin
 for(j=0;j<10;j=j+1) begin
-    V(out[i])<+V(in[j])*weights[i*10+j];
+    V(out[i])<+V(in[j])*weights[j*10+i];
 end
 end
 
