@@ -3,9 +3,9 @@
 `include "constants.vams"
 `include "disciplines.vams"
 
-module crossbar_49x10(in,out);
-input [0:48] in;
-electrical[0:48] in;
+module crossbar_10x10(in,out);
+input [0:9] in;
+electrical[0:9] in;
 output [0:9] out;
 electrical [0:9] out;
 
@@ -16,18 +16,18 @@ genvar i,j;
 integer row,column;
 integer n;
 
-real weights [0:489]; 
+real weights [0:99]; 
 real bias[0:9];
 integer read_size;
 
 analog initial begin
-filehandle=$fopen("/home/work/weight_49x10.txt","r");
+filehandle=$fopen("/home/work/weight_10x10.txt","r");
 if(filehandle==0) begin
 $display("file could not be opened");
 end
 for(row=0;row<10;row=row+1) begin
-for(column=0;column<49;column = column+1) begin
-read_size=$fscanf(filehandle,"%f",weights[row*49+column]);
+for(column=0;column<10;column = column+1) begin
+read_size=$fscanf(filehandle,"%f",weights[row*10+column]);
 end
 
 end
@@ -35,7 +35,7 @@ $fclose(filehandle);
 end
 
 analog initial begin
-filehandle2=$fopen("/home/work/bias_49x10.txt","r");
+filehandle2=$fopen("/home/work/bias_10x10.txt","r");
 for(n=0;n<10;n=n+1) begin
 read_size=$fscanf(filehandle2,"%f",bias[n]);
 end
@@ -44,8 +44,8 @@ end
 
 analog begin
 for(i=0;i<10;i=i+1) begin
-for(j=0;j<49;j=j+1) begin
-    V(out[i])<+V(in[j])*weights[i*49+j];
+for(j=0;j<10;j=j+1) begin
+    V(out[i])<+V(in[j])*weights[i*10+j];
 end
 end
 

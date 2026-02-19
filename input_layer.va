@@ -4,8 +4,8 @@
 module crossbararray(gnd,out);
 
     parameter integer N = 49;
-    output [48:0] out;
-electrical[48:0]  out;
+    output [0:48] out;
+electrical[0:48]  out;
 
 
 
@@ -14,18 +14,18 @@ electrical gnd;
     integer i;
     integer filehandle;
     integer read_size;
-    integer stored_data[0:N-1];
+    real stored_data[0:N-1];
 genvar j;
 
     analog initial begin
-        filehandle = $fopen("/home/work/data.txt", "r");
+        filehandle = $fopen("/home/work/inputdata.txt", "r");
 
         if (filehandle == 0) begin
             $display("ERROR: could not open file");
         end
 
         for (i = 0; i < N; i = i + 1) begin
-            read_size = $fscanf(filehandle, "%d", stored_data[i]);
+            read_size = $fscanf(filehandle, "%f", stored_data[i]);
             $display("index %d  value = %g", i, stored_data[i]);
         end
 
