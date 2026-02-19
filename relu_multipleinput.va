@@ -1,0 +1,13 @@
+module relu_multipleinput(in,out);
+input [0:9] in;
+electrical [0:9] in;
+output [0:9] out;
+electrical [0:9] out;
+genvar i;
+parameter N=10;
+analog begin
+for(i=0;i<N;i=i+1) begin
+V(out[i])<+V(in[i])>0?V(in[i]):0;
+end
+end
+endmodule

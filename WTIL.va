@@ -1,0 +1,27 @@
+// VerilogA for averilog, WTIL, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module WTIL(in,out);
+input [0:9] in;
+electrical [0:9] in;
+output out;
+electrical out;
+genvar i;
+integer max_val;
+
+analog  begin
+max_val=V(in[0]);
+for(i=1;i<10;i=i+1) begin
+    if(V(in[i])>max_val) begin
+        max_val=V(in[i]);
+    end
+end
+end
+
+analog begin
+    V(out)<+max_val;
+end
+
+endmodule
