@@ -1,0 +1,56 @@
+// VerilogA for averilog, crossbar_49x10, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module crossbar_49x10(in,out);
+input [0:2] in;
+electrical[0:2] in;
+output [0:2] out;
+electrical [0:2] out;
+
+integer filehandle;
+integer filehandle2;
+genvar i,j;
+
+integer row,column;
+integer n;
+
+integer weights [0:8]; 
+integer bias[0:2];
+integer read_size;
+
+analog initial begin
+filehandle=$fopen("/home/work/weight_layer1.txt","r");
+if(filehandle==0) begin
+$display("file could not be opened");
+end
+for(row=0;row<3;row=row+1) begin
+for(column=0;column<3;column = column+1) begin
+read_size=$fscanf(filehandle,"%d",weights[row*3+column]);
+end
+
+end
+$fclose(filehandle);
+end
+
+analog initial begin
+filehandle2=$fopen("/home/work/bias_layer1.txt","r");
+for(n=0;n<3;n=n+1) begin
+read_size=$fscanf(filehandle2,"%d",bias[n]);
+end
+
+end
+
+analog begin
+for(i=0;i<3;i=i+1) begin
+for(j=0;j<3;j=j+1) begin
+    V(out[i])<+V(in[j])*weights[i*3+j];
+end
+end
+
+for(i=0;i<3;i=i+1) begin
+V(out[i])<+bias[i];
+end
+end
+endmodule
